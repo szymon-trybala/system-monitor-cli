@@ -54,15 +54,15 @@
 		case 1:
 			return std::string();
 		case 2:
-			return "Wysuwalny nosnik";
+			return "External drive";
 		case 3:
-			return "Dysk twardy";
+			return "Hard drive";
 		case 4:
-			return "Dysk sieciowy";
+			return "Network drive";
 		case 5:
-			return "Naped CD";
+			return "CD drive";
 		case 6:
-			return "Dysk RAM";
+			return "RAM disk";
 		default:
 			return std::string();
 		}

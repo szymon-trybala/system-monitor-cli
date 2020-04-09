@@ -16,8 +16,12 @@ std::string Cli::parse(int argc, char* argv[])
 			("h, help", "Print help")
 			("r, ram", "RAM usage in MB")
 			("c, cpu", "CPU usage in %")
-			("n, net-adapter", "Current working network adapter name")
-			("w, win", "Version of installed Windows");
+			("n, net-adapter", "Current active network adapter name and speed")
+			("w, win", "Version of installed Windows")
+			("u, uptime", "System uptimg")
+			("name", "Hostname of computer")
+			("d, disk-space", "Info about allocated and free space on system drive")
+			("disk-type", "Info about system drive type");
 
 		auto result = options.parse(argc, argv);
 		if (result.count("help")) {
