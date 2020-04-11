@@ -22,7 +22,15 @@ int main(int argc, char* argv[])
     }
     else if (argument.compare("cpu") == 0) {
         Processor cpu;
-        std::cout << cpu.GetCPULoad() << std::endl;
+        std::cout << cpu.getCpuLoad() << std::endl;
+    }
+    else if (argument.compare("cn") == 0) {
+        Processor cpu;
+        auto info = cpu.getCpuInfo();
+        std::cout << std::get<0>(info) << std::endl;
+        std::cout << std::get<1>(info) << std::endl;
+        std::cout << std::get<2>(info) << std::endl;
+        std::cout << std::get<3>(info) << std::endl;
     }
     else if (argument.compare("net-adapter") == 0) {
         Network net;

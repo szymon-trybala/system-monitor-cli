@@ -14,6 +14,8 @@ Currently only first argument is processed, to get several values you need to ru
 
 * `-c` / `--cpu` - returns CPU load in percentage, as value between 0 and 100.
 
+* `--cn` - returns CPU info in 4 lines. First is processor name, second is its architecture, like `x64`, `x86` or `ARM64`, third is number of cores, and the last is number of threads.
+
 * `-r` / `--ram` - first returned line is RAM usage in percentage, as value between 0 and 100, second is full amount of computer's memory in MB, third is amount of free memory in MB, and the last is amount of used memory in MB
 
 * `-n` / `--net-adapter` - first returned line is maximum speed of current network adapter in KB, second returned line is 
@@ -25,10 +27,6 @@ name of current network adapter.
 
 * `--name` - returns hostname of computer
 
-* `-d` / `--disk-space` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space.
+* `-d` / `--disk-space` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
 
-Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
-
-* `--disk-type` - returns the type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`.
-
-Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
+* `--disk-type` - returns the type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
