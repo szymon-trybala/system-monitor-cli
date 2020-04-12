@@ -56,7 +56,18 @@ int main(int argc, char* argv[])
     }
     else if (argument.compare("disk-space") == 0) {
         Storage st;
-        auto disk_space = st.getDiskSizeInfo();
+        std::vector<UINT64> disk_space;
+
+        if (argc > 2)
+        {
+            char letter = argv[2][1];
+            if (letter == '-') letter = argv[2][2];
+            std::string path(1,letter);
+            path.append(":\\");
+            disk_space = st.getDiskSizeInfo(path);
+
+        }else disk_space = st.getDiskSizeInfo();
+
         for (auto& x : disk_space) {
             std::cout << x << std::endl;
         }
@@ -69,7 +80,6 @@ int main(int argc, char* argv[])
     {
         std::cerr << "Wrong argument provided, program will stop" << std::endl;
         exit(-1);
-
     }
     exit(0);
 }

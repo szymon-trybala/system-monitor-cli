@@ -8,10 +8,10 @@ class Storage
 {
 public:
 	std::vector<UINT64> getDiskSizeInfo(std::string path = std::string());
-	std::string getDriveType(std::string path = std::string());
+	std::string getDriveType(std::string path = "");
 
 private:
 	BOOL driveTypeResult;
 	LPCSTR driveTypeDefaultPath = NULL;
-	UINT64 driveTypeFreeBytesAvaliableToCaller, driveTypeTotalBytes, driveTyoeTotalFreeBytes;
+	UINT64 driveTypeFreeBytesAvaliableToCaller, driveTypeTotalBytes, driveTypeTotalFreeBytes;
 };

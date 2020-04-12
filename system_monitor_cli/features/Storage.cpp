@@ -5,13 +5,13 @@
 
 	std::vector<UINT64> Storage::getDiskSizeInfo(std::string path)
 	{
-		if (path == std::string()) 
+		if (path == "") 
 		{
 			driveTypeResult = GetDiskFreeSpaceExA(
 				driveTypeDefaultPath,
 				(PULARGE_INTEGER)&driveTypeFreeBytesAvaliableToCaller,
 				(PULARGE_INTEGER)&driveTypeTotalBytes,
-				(PULARGE_INTEGER)&driveTyoeTotalFreeBytes
+				(PULARGE_INTEGER)&driveTypeTotalFreeBytes
 			);
 		}
 		else 
@@ -20,7 +20,7 @@
 				path.c_str(),
 				(PULARGE_INTEGER)&driveTypeFreeBytesAvaliableToCaller,
 				(PULARGE_INTEGER)&driveTypeTotalBytes,
-				(PULARGE_INTEGER)&driveTyoeTotalFreeBytes
+				(PULARGE_INTEGER)&driveTypeTotalFreeBytes
 			);
 		}
 		
@@ -28,9 +28,9 @@
 			return std::vector<UINT64>();
 
 		std::vector<UINT64> vector;
-		vector.push_back((driveTypeTotalBytes - driveTyoeTotalFreeBytes) / (pow(1000, 2)));
-		vector.push_back(driveTyoeTotalFreeBytes / (pow(1000, 2)));
-		vector.push_back(driveTypeTotalBytes / (pow(1000, 2)));
+		vector.push_back((driveTypeTotalBytes - driveTypeTotalFreeBytes) / (pow(1024, 2)));
+		vector.push_back(driveTypeTotalFreeBytes / (pow(1024, 2)));
+		vector.push_back(driveTypeTotalBytes / (pow(1024, 2)));
 
 		return vector;
 	}

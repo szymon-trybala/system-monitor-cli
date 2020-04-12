@@ -21,12 +21,12 @@ Currently only first argument is processed, to get several values you need to ru
 * `-n` / `--net-adapter` - first returned line is maximum speed of current network adapter in KB, second returned line is 
 name of current network adapter.
 
-* `-w` / `--win` - returns currently used version of Windows.
+* `-w` / `--win` - returns currently used version, build and release of Windows.
 
 * `-u` / `--uptime` - returns amount of time elapsed since computer was turned on. First line is hours, second line is minutes, third line is seconds, and the last line is miliseconds.
 
 * `--name` - returns hostname of computer
 
-* `-d` / `--disk-space` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
+* `-d -[drive-letter]` / `--disk-space --[drive-letter]` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space. Second parameter is optional, if you skip it you will get system partition information.
 
 * `--disk-type` - returns the type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
