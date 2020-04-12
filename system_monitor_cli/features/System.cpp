@@ -1,5 +1,6 @@
 #include "System.h"
-#pragma warning(disable : 4996)
+#include "../Utilities.cpp"
+
 
 std::tuple<long long, unsigned short, unsigned short, unsigned short> System::getUpTime()
 {
@@ -25,22 +26,84 @@ std::string System::getComputerName()
 	return computer_name;
 }
 
+
 std::string System::getSystemVersion()
 {
-	OSVERSIONINFO info;
-	ZeroMemory(&info, sizeof(OSVERSIONINFO));
-	info.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	
+    DWORD dwSize = 0;
+    BYTE* pbVersionInfo = NULL;
+    VS_FIXEDFILEINFO* pFileInfo = NULL;
+    UINT puLenFileInfo = 0;
+    TCHAR pszPath[MAX_PATH];
+    DWORD dwMajor, dwMinor;
+    BOOL Is64 = FALSE;
 
-	GetVersionEx(&info);
-	std::string version = std::to_string(info.dwMajorVersion);
-	version.append(".").append(std::to_string(info.dwMinorVersion));
+    GetSystemDirectory(pszPath, sizeof(pszPath));
 
-	if (IsWindows7OrGreater()) {
-		if (version == "6.1") return "Windows 7";
-	}
-	if (IsWindows8Point1OrGreater()) {
-		return "Windows 8";
-	}
-	else
-		return "Windows 10";
+    PathAppend(pszPath, _T("kernel32.dll"));
+
+    dwSize = GetFileVersionInfoSize(pszPath, NULL);
+
+    if (dwSize != 0)
+    {
+        pbVersionInfo = new BYTE[dwSize];
+
+        if (GetFileVersionInfo(pszPath, 0, dwSize, pbVersionInfo))
+        {
+            if (VerQueryValue(pbVersionInfo, _T("\\"), (LPVOID*)&pFileInfo, &puLenFileInfo))
+            {
+
+               
+                #ifdef ENVIRONMENT64
+                dwMajor = pFileInfo->dwProductVersionMS >> 16 & 0xff;
+                dwMinor = pFileInfo->dwProductVersionMS >> 0 & 0xff;
+                #endif
+               
+                #ifdef ENVIRONMENT32
+                dwMajor = pFileInfo->dwProductVersionMS;
+                dwMinor = pFileInfo->dwProductVersionMS;
+                #endif
+              
+
+                std::string relaseId = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ReleaseId");
+                std::string build = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"CurrentBuild");
+
+                if (dwMajor == 5)
+                {
+                    if (dwMinor == 0) {
+                        return "Windows 2000 5.0."+ relaseId + " " + build;
+                    }
+                    else if (dwMinor == 1) {
+                        return "Windows XP 5.1." + relaseId + " " + build;
+                    }
+                }
+                else if (dwMajor == 6)
+                {
+                    if (dwMinor == 0) {
+                        return "Windows Vista 6.0" + relaseId + " " + build;
+                    }
+                    else if (dwMinor == 1) {
+                        return "Windows 7 6.1" + relaseId + " " + build;
+                    }
+                    else if (dwMinor == 2) {
+                        return "Windows 8 6.2" + relaseId + " " + build;
+                    }
+                    else if (dwMinor == 3) {
+                        return "Windows 8.1 6.3" + relaseId + " " + build;
+                    }
+                }
+                else if (dwMajor == 10)
+                {
+                  
+                    if (dwMinor == 0) {
+                      
+                        return  "Windows 10.0." + relaseId + " " + build;
+                       
+                    }
+                }
+            }
+         
+        }
+    }
+   
 }
