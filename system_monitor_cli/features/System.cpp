@@ -29,7 +29,6 @@ std::string System::getComputerName()
 
 std::string System::getSystemVersion()
 {
-	
     DWORD dwSize = 0;
     BYTE* pbVersionInfo = NULL;
     VS_FIXEDFILEINFO* pFileInfo = NULL;
@@ -53,17 +52,17 @@ std::string System::getSystemVersion()
             if (VerQueryValue(pbVersionInfo, _T("\\"), (LPVOID*)&pFileInfo, &puLenFileInfo))
             {
 
-               
+
                 #ifdef ENVIRONMENT64
                 dwMajor = pFileInfo->dwProductVersionMS >> 16 & 0xff;
                 dwMinor = pFileInfo->dwProductVersionMS >> 0 & 0xff;
                 #endif
-               
+
                 #ifdef ENVIRONMENT32
                 dwMajor = pFileInfo->dwProductVersionMS;
                 dwMinor = pFileInfo->dwProductVersionMS;
                 #endif
-              
+
 
                 std::string relaseId = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ReleaseId");
                 std::string build = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"CurrentBuild");
@@ -71,7 +70,7 @@ std::string System::getSystemVersion()
                 if (dwMajor == 5)
                 {
                     if (dwMinor == 0) {
-                        return "Windows 2000 5.0."+ relaseId + " " + build;
+                        return "Windows 2000 5.0." + relaseId + " " + build;
                     }
                     else if (dwMinor == 1) {
                         return "Windows XP 5.1." + relaseId + " " + build;
@@ -94,16 +93,11 @@ std::string System::getSystemVersion()
                 }
                 else if (dwMajor == 10)
                 {
-                  
                     if (dwMinor == 0) {
-                      
                         return  "Windows 10.0." + relaseId + " " + build;
-                       
                     }
                 }
             }
-         
         }
     }
-   
 }

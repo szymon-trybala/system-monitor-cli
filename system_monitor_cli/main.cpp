@@ -5,11 +5,17 @@
 #include "features/Storage.h"
 #include "features/Network.h"
 #include "features/System.h"
+#include "features/Display.h"
 
 #include <iostream>
+#include <WinUser.h>
 
 int main(int argc, char* argv[])
 {
+    if (SetProcessDPIAware() == false) {        // Disabling DPI-awareness for newer Windows versions, to get actual screen resolution, not virtual resolution, after scaling
+        std::cerr << "Error while calculating display scaling, resolution info may be misleading" << std::endl;
+    }
+
     Cli cli;
 
     std::string argument = cli.parse(argc, argv);
@@ -66,7 +72,8 @@ int main(int argc, char* argv[])
             path.append(":\\");
             disk_space = st.getDiskSizeInfo(path);
 
-        }else disk_space = st.getDiskSizeInfo();
+        }
+        else disk_space = st.getDiskSizeInfo();
 
         for (auto& x : disk_space) {
             std::cout << x << std::endl;
@@ -75,6 +82,19 @@ int main(int argc, char* argv[])
     else if (argument.compare("disk-type") == 0) {
         Storage st;
         std::cout << st.getDriveType() << std::endl;
+    }
+    else if (argument.compare("monitor-res") == 0) {
+        Display display;
+        auto result = display.get_display_resolution();
+        std::cout << std::get<0>(result) << std::endl;
+        std::cout << std::get<1>(result) << std::endl;
+    }
+    else if (argument.compare("monitor-info") == 0) {
+        Display display;
+        auto result = display.get_display_info();
+        for (auto& x : result) {
+            std::cout << x << std::endl;
+        }
     }
     else 
     {

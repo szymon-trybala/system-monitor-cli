@@ -6,7 +6,7 @@ CLI is made with [cxxopts](https://github.com/jarro2783/cxxopts) library.
 
 Currently only first argument is processed, to get several values you need to run program few times.
 
-
+**Currently can be compiled for x64 systems only if you comment lines for getting scale factor in Display.cpp**
 
 ## Currently available arguments with with associated returned values:
 
@@ -30,3 +30,7 @@ name of current network adapter.
 * `-d -[drive-letter]` / `--disk-space --[drive-letter]` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space. Second parameter is optional, if you skip it you will get system partition information.
 
 * `--disk-type` - returns the type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
+
+* `--monitor-res` - Returns monitor's resolution - first line is horizontal resolution, sedond line is vertical resolution.
+
+* `--monitor-info` - Returns monitor informations - first line is amount of monitors, second is name of main monitor, third is refresh rate in Hz, 4th is adjacent color bits for each pixel, 5th is color resolution, in bits per pixel, 6th is main monitor's estimated physical width in mm, 7th is main monitor's estimaged height in mm, 8th is scaling factor (inaccurate on newer versions of W10)
