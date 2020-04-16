@@ -16,6 +16,8 @@ inline std::string getValFromReg(const std::wstring &key, const std::wstring  &v
         nullptr, // pvData == nullptr ? Request buffer size
         &dataSize);
 
+    if (result != ERROR_SUCCESS) return "";
+
     CString text;
     const DWORD bufferLength = dataSize / sizeof(WCHAR); // length in WCHAR's
     WCHAR* const textBuffer = text.GetBuffer(bufferLength);
@@ -28,6 +30,8 @@ inline std::string getValFromReg(const std::wstring &key, const std::wstring  &v
         nullptr,
         textBuffer, // Write string in this destination buffer
         &dataSize);
+
+    if (result != ERROR_SUCCESS) return "";
 
     const DWORD actualStringLength = dataSize / sizeof(WCHAR);
 

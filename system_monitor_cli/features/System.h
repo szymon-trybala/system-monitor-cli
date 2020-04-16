@@ -3,14 +3,6 @@
 #pragma comment( lib, "Shlwapi.lib")
 #pragma comment( lib, "Version.lib")
 
-#if _WIN32 || _WIN64
-#if _WIN64
-#define ENVIRONMENT64
-#else
-#define ENVIRONMENT32
-#endif
-#endif
-
 #include "windows.h"
 #include <vector>
 #include <string>

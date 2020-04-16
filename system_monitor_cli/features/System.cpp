@@ -52,47 +52,39 @@ std::string System::getSystemVersion()
             if (VerQueryValue(pbVersionInfo, _T("\\"), (LPVOID*)&pFileInfo, &puLenFileInfo))
             {
 
-
-                #ifdef ENVIRONMENT64
                 dwMajor = pFileInfo->dwProductVersionMS >> 16 & 0xff;
                 dwMinor = pFileInfo->dwProductVersionMS >> 0 & 0xff;
-                #endif
-
-                #ifdef ENVIRONMENT32
-                dwMajor = pFileInfo->dwProductVersionMS;
-                dwMinor = pFileInfo->dwProductVersionMS;
-                #endif
-
-
-                std::string relaseId = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ReleaseId");
                 std::string build = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"CurrentBuild");
+              
 
                 if (dwMajor == 5)
                 {
                     if (dwMinor == 0) {
-                        return "Windows 2000 5.0." + relaseId + " " + build;
+                        return "Windows 2000 5.0 " + build;
                     }
                     else if (dwMinor == 1) {
-                        return "Windows XP 5.1." + relaseId + " " + build;
+                        return "Windows XP 5.1 " + build;
                     }
                 }
                 else if (dwMajor == 6)
                 {
                     if (dwMinor == 0) {
-                        return "Windows Vista 6.0" + relaseId + " " + build;
+                        return "Windows Vista 6.0 " + build;
                     }
                     else if (dwMinor == 1) {
-                        return "Windows 7 6.1" + relaseId + " " + build;
+                        return "Windows 7 6.1 "+ build;
                     }
                     else if (dwMinor == 2) {
-                        return "Windows 8 6.2" + relaseId + " " + build;
+                        return "Windows 8 6.2 " + build;
                     }
                     else if (dwMinor == 3) {
-                        return "Windows 8.1 6.3" + relaseId + " " + build;
+                        return "Windows 8.1 6.3 " + build;
                     }
                 }
                 else if (dwMajor == 10)
                 {
+                    std::string relaseId = getValFromReg(L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", L"ReleaseId");
+
                     if (dwMinor == 0) {
                         return  "Windows 10.0." + relaseId + " " + build;
                     }
