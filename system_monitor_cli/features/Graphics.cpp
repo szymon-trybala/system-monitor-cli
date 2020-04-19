@@ -25,41 +25,30 @@ std::vector<std::string> Graphics::get_gpu_name()
 	D3DADAPTER_IDENTIFIER9 adapter_id;
 	g_pD3D->GetAdapterIdentifier(D3DADAPTER_DEFAULT, 0, &adapter_id);
 
-	auto gpu_amount = std::to_string(g_pD3D->GetAdapterCount());
 	auto gpu_desc = std::string(adapter_id.Description);
 	auto gpu_device = std::string(adapter_id.DeviceName);
 	auto gpu_driver = std::string(adapter_id.Driver);
 
-	int32_t index = 0;
 
-	// Create the DXGI factory
-	IDXGIFactory* pFactory;
-	HRESULT hr = CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
-	if (FAILED(hr))
-		throw;
+	// Getting VRAM amount
+	IDXGIFactory4* pFactory;
+	CreateDXGIFactory1(__uuidof(IDXGIFactory4), (void**)&pFactory);
 
-	IDXGIAdapter* pAdapter;
-	hr = pFactory->EnumAdapters(index, &pAdapter);
-	if (FAILED(hr))
-		throw;
+	IDXGIAdapter3* adapter;
+	pFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&adapter));
 
-	DXGI_ADAPTER_DESC desc;
-
-	hr = pAdapter->GetDesc(&desc);
-	if (FAILED(hr))
-		throw;
-
-	auto gpu_video_memory_bytes = desc.DedicatedVideoMemory;
-	auto gpu_system_memory_bytes = desc.DedicatedSystemMemory;
-	auto gpu_shared_memory_bytes = desc.SharedSystemMemory;
-
+	DXGI_QUERY_VIDEO_MEMORY_INFO videoMemoryInfo;
+	adapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &videoMemoryInfo);
+	auto gpu_vram = videoMemoryInfo.Budget;
 
 	std::vector<std::string> result;
-	result.push_back(gpu_amount);
 	result.push_back(gpu_desc);
-	result.push_back(std::to_string(gpu_video_memory_bytes / 1024 / 1024));
-	result.push_back(std::to_string(gpu_system_memory_bytes / 1024 / 1024));
-	result.push_back(std::to_string(gpu_shared_memory_bytes / 1024 / 1024));
+	auto ceiled = gpu_vram / 1000 / 1000;
+	auto calced = (int)ceiled / 1000;
+	if ((int)ceiled % 1000 > 0)
+		calced++;
+
+	result.push_back(std::to_string(calced * 1024));
 	result.push_back(gpu_driver);
 	result.push_back(gpu_device);
 
@@ -69,20 +58,6 @@ std::vector<std::string> Graphics::get_gpu_name()
 std::vector<std::string> Graphics::get_gpu_usage()
 {
 	std::vector<std::string> result;
-
-	// Getting VRAM usage
-	IDXGIFactory4* pFactory;
-	CreateDXGIFactory1(__uuidof(IDXGIFactory4), (void**)&pFactory);
-
-	IDXGIAdapter3* adapter;
-	pFactory->EnumAdapters(0, reinterpret_cast<IDXGIAdapter**>(&adapter));
-
-	DXGI_QUERY_VIDEO_MEMORY_INFO videoMemoryInfo;
-	adapter->QueryVideoMemoryInfo(0, DXGI_MEMORY_SEGMENT_GROUP_LOCAL, &videoMemoryInfo);
-
-	size_t usedVRAM = videoMemoryInfo.CurrentUsage;
-
-	result.push_back(std::to_string(usedVRAM));
 
 	// Getting GPU LOAD
 	HMODULE hmod = LoadLibraryA("nvapi.dll");

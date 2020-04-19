@@ -33,8 +33,8 @@ name of current network adapter.
 
 * `--monitor-res` - Returns monitor's resolution - first line is horizontal resolution, sedond line is vertical resolution.
 
-* `--monitor-info` - Returns monitor informations - first line is amount of monitors, second is name of main monitor, third is refresh rate in Hz, 4th is adjacent color bits for each pixel, 5th is color resolution, in bits per pixel, 6th is main monitor's estimated physical width in mm, 7th is main monitor's estimaged height in mm, 8th is scaling factor (inaccurate on newer versions of W10)
+* `--monitor-info` - Returns monitor informations - first line is amount of monitors, second is name of main monitor, third is refresh rate in Hz, 4th is adjacent color bits for each pixel, 5th is color resolution, in bits per pixel, 6th is main monitor's estimated physical width in mm, 7th is main monitor's estimaged height in mm, 8th is scaling factor (inaccurate on newer versions of W10).
 
-* `-g / --gpu-info` - Returns informations about GPU - first line is amount of graphics adapters, second is name if currently used GPU, third is amount of dedicated video memory, 4th is amount of dedicated system memory, 5th is amount of shared memory, 6th is name of driver file, 7th is GPU-s Windows name
+* `-g / --gpu-info` - Returns informations about GPU - first is name if currently used GPU, second is amount of GPU memory, third is name of driver file, and 4th is GPU's Windows name.
 
-* `--gpu-usage` - Returns GPU resources usage, first line is VRAM usage, second is GPU usage (UNSTABLE, DO NOT USE)
+* `--gpu-usage` -  Returns GPU resources usage - ONLY FOR NVIDIA, OTHER GPU BRANDS RETURN ERROR IN CERR - first line is GPU usage.
