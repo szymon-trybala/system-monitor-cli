@@ -6,7 +6,11 @@ CLI is made with [cxxopts](https://github.com/jarro2783/cxxopts) library.
 
 Currently only first argument is processed, to get several values you need to run program few times.
 
-**Currently can be compiled for x64 systems only if you comment lines for getting scale factor in Display.cpp**
+---
+##### To succesfully compile, you need to link few additional libraries in Visual Studio: Project Settings -> Properties -> Linker -> Input
+* Libraries to add: D3d9.lib; DXGI.lib; gdi32.lib; shcore.lib; advapi32.lib; odbc32.lib; odbccp32.lib
+---
+
 
 ## Currently available arguments with with associated returned values:
 
