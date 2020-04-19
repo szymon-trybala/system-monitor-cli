@@ -25,7 +25,7 @@ std::string Cli::parse(int argc, char* argv[])
 			("disk-type", "Returns type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.")
 			("monitor-res", "Returns monitor's resolution - first line is horizontal resolution, sedond line is vertical resolution")
 			("monitor-info", "Returns monitor informations - first line is amount of monitors, second is name of main monitor, third is refresh rate in Hz, 4th is adjacent color bits for each pixel, 5th is color resolution, in bits per pixel, 6th is main monitor's estimated physical width in mm, 7th is main monitor's estimaged height in mm, 8th is scaling factor (inaccurate on newer versions of W10)")
-			("g, gpu-info", "Returns informations about GPU - first is name if currently used GPU, second is amount of GPU memory, third is name of driver file, and 4th is GPU's Windows name")
+			("g, gpu-info", "Returns informations about GPU - first is name if currently used GPU, second is name of driver file, third is GPU's Windows name, and 4th is amount of GPU memory, IT'S DISPLAYED ONLY ON WINDOWS 10, ON OLDER SYSTEMS THERE WILL BE ONLY 3 LINES. ")
 			("gpu-usage", "Returns GPU resources usage - ONLY FOR NVIDIA, OTHER GPU BRANDS RETURN ERROR IN CERR - first line is GPU usage");
 
 		auto result = options.parse(argc, argv);

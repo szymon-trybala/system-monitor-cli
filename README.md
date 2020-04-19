@@ -35,6 +35,6 @@ name of current network adapter.
 
 * `--monitor-info` - Returns monitor informations - first line is amount of monitors, second is name of main monitor, third is refresh rate in Hz, 4th is adjacent color bits for each pixel, 5th is color resolution, in bits per pixel, 6th is main monitor's estimated physical width in mm, 7th is main monitor's estimaged height in mm, 8th is scaling factor (inaccurate on newer versions of W10).
 
-* `-g / --gpu-info` - Returns informations about GPU - first is name if currently used GPU, second is amount of GPU memory, third is name of driver file, and 4th is GPU's Windows name.
+* `-g / --gpu-info` - Returns informations about GPU - first is name if currently used GPU, second is name of driver file, third is GPU's Windows name, and 4th is amount of GPU memory, IT'S DISPLAYED ONLY ON WINDOWS 10, ON OLDER SYSTEMS THERE WILL BE ONLY 3 LINES.
 
 * `--gpu-usage` -  Returns GPU resources usage - ONLY FOR NVIDIA, OTHER GPU BRANDS RETURN ERROR IN CERR - first line is GPU usage.
