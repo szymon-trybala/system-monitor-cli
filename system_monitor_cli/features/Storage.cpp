@@ -2,6 +2,10 @@
 
 #include <math.h>
 #include <string>
+#include <iostream>
+#include "../include/cxxopts.hpp"
+
+
 
 	std::vector<UINT64> Storage::getDiskSizeInfo(std::string path)
 	{
@@ -54,16 +58,34 @@
 		case 1:
 			return std::string();
 		case 2:
-			return "External drive";
+			return "Dysk zewnêtrzny";
 		case 3:
-			return "Hard drive";
+			return "Dysk twardy";
 		case 4:
-			return "Network drive";
+			return "Dysk sieciowy";
 		case 5:
-			return "CD drive";
+			return "Dysk CD";
 		case 6:
-			return "RAM disk";
+			return "Dysk RAM";
 		default:
 			return std::string();
+		}
+	}
+
+	std::vector<std::string> Storage::getMountedPartitions()
+	{
+		try {
+			std::vector<std::string> arrayOfDrives;
+			char* szDrives = new char[MAX_PATH]();
+			if (GetLogicalDriveStringsA(MAX_PATH, szDrives));
+			for (int i = 0; i < 100; i += 4)
+				if (szDrives[i] != (char)0)
+					arrayOfDrives.push_back(std::string{ szDrives[i],szDrives[i + 1],szDrives[i + 2] });
+			delete[] szDrives;
+			return arrayOfDrives;
+		}
+		catch (const cxxopts::OptionException& e) {
+			std::cerr << "Error while probing partitions: " << e.what() << std::endl;
+			exit(1);
 		}
 	}

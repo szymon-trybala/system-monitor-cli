@@ -9,6 +9,7 @@ class Storage
 public:
 	std::vector<UINT64> getDiskSizeInfo(std::string path = std::string());
 	std::string getDriveType(std::string path = "");
+	std::vector<std::string> getMountedPartitions();
 
 private:
 	BOOL driveTypeResult;

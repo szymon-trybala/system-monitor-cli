@@ -112,6 +112,15 @@ int main(int argc, char* argv[])
             std::cout << x << std::endl;
         }
     }
+    else if (argument.compare("partitions") == 0) {
+        Storage storage;
+        auto result = storage.getMountedPartitions();
+
+        for (auto& x : result) {
+            std::cout << x;
+        }
+        std::cout << std::endl;
+    }
     else 
     {
         std::cerr << "Wrong argument provided, program will stop" << std::endl;
