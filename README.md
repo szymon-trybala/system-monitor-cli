@@ -33,7 +33,7 @@ name of current network adapter.
 
 * `-d -[drive-letter]` / `--disk-space --[drive-letter]` - returns info about disk space - first line is free space in MB, second line is used space in MB, and the last line is whole space. Second parameter is optional, if you skip it you will get system partition information.
 
-* `--disk-type` - returns the type of disk on which is the current partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. Currently it shows info only about system partition, in future it should be possible to provide value with disk letter (like `-d c:` or `-d all`), to show info about different partitions.
+* `--disk-type` - Returns type of disk on which is the selected or system partition. Possible values are: `External drive`, `Hard drive`, `Network drive`, `CD drive` and `RAM disk`. To select different partition, provide its letter in second argument, for example `system_monitor_cli.exe --disk-type -D:\-`. Without additional argument, system partition will be probed.
 
 * `-p / --partitions` - Return letters of all available partitions in one line, for example 'C:\D:\'
 
