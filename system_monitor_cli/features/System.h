@@ -1,5 +1,6 @@
 #pragma once
 
+
 #pragma comment( lib, "Shlwapi.lib")
 #pragma comment( lib, "Version.lib")
 
@@ -12,7 +13,7 @@
 class System
 {
 public:
-	std::tuple<long long, unsigned short, unsigned short, unsigned short> getUpTime();
+	std::tuple<ULONGLONG, ULONGLONG, ULONGLONG, ULONGLONG> getUpTime();
 	std::string getComputerName();
 	std::string getSystemVersion();
 

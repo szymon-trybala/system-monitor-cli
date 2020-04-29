@@ -1,18 +1,28 @@
 #include "System.h"
 #include "../Utilities.cpp"
 
+#include <iostream>
 
-std::tuple<long long, unsigned short, unsigned short, unsigned short> System::getUpTime()
+std::tuple<ULONGLONG, ULONGLONG, ULONGLONG, ULONGLONG> System::getUpTime()
 {
-	this->ticks = GetTickCount64();
+    try {
+        this->ticks = GetTickCount64();
 
-	unsigned int one_hour = 60 * 60 * 1000;
-	long long hours = ticks / one_hour;
-	unsigned short minutes = (ticks - (hours * one_hour)) / (one_hour / 60);
-	unsigned short seconds = (ticks - (hours * one_hour) - (minutes * (one_hour / 60))) / 1000;
-	unsigned short miliseconds = ticks - (hours * one_hour) - (minutes * (one_hour / 60)) - (seconds * 1000);
+        ULONGLONG miliseconds = ticks % 1000;
+        ticks /= 1000;
+        ULONGLONG seconds = ticks % 1000;
+        ticks /= 60;
+        ULONGLONG minutes = ticks % 60;
+        ticks /= 60;
+        ULONGLONG hours = ticks;       // When "Fast startup" in Windows settings is on, turning off computer doesn't reset counter!
 
-	return { hours, minutes, seconds, miliseconds };
+        return { hours, minutes, seconds, miliseconds };
+    }
+    catch (...) {
+        std::cerr << "Exception was thrown during getting uptime, program will exit" << std::endl;
+        exit(-1);
+    }
+
 }
 
 std::string System::getComputerName()
